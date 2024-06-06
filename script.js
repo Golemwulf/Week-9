@@ -1,33 +1,114 @@
-const card = {
-    rank: [14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2],
-    suit: ['Hearts', 'Diamonds', 'Clubs', 'Spades'],   
+class Card {
+    constructor(){
+     this.suit = ['Hearts', 'Diamonds', 'Clubs', 'Spades'];
+     //                                       'j' 'q''k' 'a'  
+     this.rank = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+ } 
+
+ 
+ }
+
+class Player{
+ constructor(player1, player2){
+     this.player1Name = player1;
+     this.player1Hand = [];
+     this.player2Name = player2;
+     this.player2Hand = []
+ }
 }
 
-let  = 'Player 1';
-let player2 = 'Player 2';
+class Game extends Card{
+ constructor(card){
+     super(card);
+     this.deck = [];
+ }
+ // build deck.
+ buildDeck(){
+     //Beginning of ranks loop
+     this.suit.forEach((suitValue, rankValue) => {
+    
 
-const drawCard1 = () =>{
-    return card.rank[Math.floor(Math.random() * card.rank.length)];
+     //looping through the suits array
+     this.rank.forEach((rankValue) => {
+         if(rankValue === 11){
+             rankValue = 'Jack'
+         }
+         else if(rankValue === 12 ){
+             rankValue = 'Queen'
+         }
+         else if(rankValue === 13){
+             rankValue = 'King'
+         }
+         else if(rankValue === 14){
+             rankValue = 'Ace' 
+         }
+     
+                 
+     
+         let newCard = {
+             rank: rankValue,
+             suit: suitValue,
+         }
+         
+     this.deck.push(newCard)
+     });
 
-    // return `${card.rank[Math.floor(Math.random() * card.rank.length)]} of ${card.suit[Math.floor(Math.random() * card.suit.length)]}`
+//End of ranks loop
+    
+     return
+ });
+
+ } 
+ 
+ 
+ dealDeck(){
+     this.player1Hand = this.deck.slice(0, 26)
+     console.log('Player 1');
+     console.log(this.player1Hand);
+     
+     this.player2Hand = this.deck.splice(26,52).reverse(); 
+     console.log('Player 2')      
+     console.log(this.player2Hand);
+     
+     
+ }
+ compareCards(){
+     console.log('Who wins?')
+     
+     for (let i = 0; i < 26; i++){
+         console.log('Player 1');
+         console.log(this.player1Hand[i]);
+         console.log('Player 2')
+         console.log(this.player2Hand[i]);
+         const winner = this.player1Hand[i] > this.player2Hand[i] ? `Player 1 Wins!` : `Player 2 Wins!`;
+         console.log(winner)
+         
+     }
+ }
+    
+     
+ 
+ // play game.
+ playGame(){
+     let players = new Player("Player 1", "Player 2");
+     console.log("New players created:", players);
+
+     this.buildDeck();
+
+     this.dealDeck();
+     
+     this.compareCards()
+
+     //This will determine the winner of the game
+
+ }
 }
 
-const drawCard2 = () =>{
 
-    return card.rank[Math.floor(Math.random() * card.rank.length)];
-    // return `${card.rank[Math.floor(Math.random() * card.rank.length)]} of ${card.suit[Math.floor(Math.random() * card.suit.length)]}`
-}
-// console.log(drawCard())
 
-const winner = () =>{
-    console.log(`Player 1: ${drawCard1()}`);
-    console.log(`Player 2: ${drawCard2()}`)
-    if (drawCard1() > drawCard2()){
-        return 'Player 1 wins!'
-    }else if (drawCard1() < drawCard2()){
-        return 'Player 2 wins!';
-    }else {
-        return 'Draw';
-    } 
-} 
-console.log(winner())
+     
+ 
+
+
+let warGame = new Game();
+warGame.playGame();
